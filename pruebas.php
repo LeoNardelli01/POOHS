@@ -10,6 +10,11 @@ $db = new Conexion('db'); // el parametro puede ser 'db' o 'json', para que se p
 //no me queda claro por que la clase Usuario recibe un objeto de tipo Conexion.
 
 $usuario = new Usuario($db, 'Leonel', 'Nardelli', 'leonchis', '123', 'leo@gmail.com', 'localhost/misfotos/');
+/*
+aca creo un nuevo objeto Usuario y los parametros se los pase manual, que luego
+recibe lo que se manda por $_POST, por ejemplo en en segundo parametro iria
+$_POST['nombre'].
+*/
 
 echo $usuario -> getNombre();
 echo "<br>";
