@@ -10,42 +10,45 @@ class Conexion{
    private $user = "root";
    private $pass = "root";
 
-public function __construct($tipoConexion){
-   try {
-      switch ($tipoConexion) {
-         case 'json':
-            echo "JSON";
+   public function __construct($tipoConexion){
+      try {
+         switch ($tipoConexion) {
+            case 'json':
+               echo "JSON";
+               //aca deberia ir la conexion al archivo .json
+               //ver la posibilidad de hacer una class Json y tratarlo como un objeto
 
-            break;
-         case 'db':
-               $this->db = new PDO("mysql:host=$this->host;dbname=$this->dbNombre",
-                                    $this->user, $this->pass, array(
-                                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
+               break;
+            case 'db':
+                  $this->db = new PDO("mysql:host=$this->host;dbname=$this->dbNombre",
+                                       $this->user, $this->pass, array(
+                                       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
 
 
-            break;
-         default:
-            echo "Elige entre DB y JSON para almacenamiento";
-            break;
+               break;
+            default:
+               echo "Elige entre DB y JSON para almacenamiento";
+               break;
+         }
+
+
+      } catch (PDOException $e) {
+
+         throw new Exception("Error al conectar a la base de datos: " . $e -> getMessage(), 1);
       }
 
 
-   } catch (PDOException $e) {
 
-      throw new Exception("Error al conectar a la base de datos: " . $e -> getMessage(), 1);
    }
 
+   public function consulta($querySql){
+      //este metodo no funciona bien, revisar!!
+      $resultado = $this->db->prepare($querySql);
+      return $resultado;
+   }
 
-
-}
-
-public function consulta($querySql){
-   $resultado = $this->db->prepare($querySql);
-   return $resultado;
-}
-
-public function getDb(){
-   return $this->db;
-}
+   public function getDb(){
+      return $this->db;
+   }
 }
 ?>

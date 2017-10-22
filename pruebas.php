@@ -28,7 +28,14 @@ var_dump($usuario);
 echo "<br><br><br>";
 $sql = $usuario -> getConn() -> getDb() -> prepare("SELECT* FROM actors WHERE first_name LIKE 'J____Y';");
 //esto deberia devolver 3 nombres.
+/*
+El objeto usuario tiene una variable $conn que guarda un objeto de tipo Conexion
+accedemos a ese objeto con el metodo getConn().
+el objeto $conn (Conexion) tiene el metodo getDb() que es un objeto de tipo PDO
+por eso podemos utilizar los metodos ->prepare() y ->execute, para preparar
+la query que vamos a utilizar en la base de datos
 
+*/
 $sql -> execute();
 $resultado = $sql -> fetchAll();
 print_r($resultado);
