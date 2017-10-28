@@ -1,14 +1,13 @@
 <?php
 require_once('config.php');
-require_once('funciones.php');
 
 class Conexion{
    private $db;
    private $json; // esta variable va a guardar el archivo json;
-   private $host = "localhost";
-   private $dbNombre = "movies_db";   //aca va el nombre de la base de datos.
-   private $user = "root";
-   private $pass = "root";
+   private $host = DB_HOST;
+   private $dbNombre = "hs_db";   //aca va el nombre de la base de datos.
+   private $user = DB_USUARIO;
+   private $pass = DB_PASS;
 
    public function __construct($tipoConexion){
       try {
@@ -24,7 +23,7 @@ class Conexion{
                                        $this->user, $this->pass, array(
                                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
 
-
+                                   
                break;
             default:
                echo "Elige entre DB y JSON para almacenamiento";
@@ -50,5 +49,6 @@ class Conexion{
    public function getDb(){
       return $this->db;
    }
+
 }
 ?>

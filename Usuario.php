@@ -1,24 +1,30 @@
 <?php
 class Usuario{
+   use Validacion;
 
    private $conn;
    private $nombre;
    private $apellido;
-   private $usuario;
+   private $alias;
    private $pass;
    private $email;
    private $rutaAvatar;
 
-   public function __construct(Conexion $conn, $nombre, $apellido, $usuario, $pass, $email, $rutaAvatar){
-      $this ->conn = $conn;
-      $this ->nombre = $nombre;
-      $this ->apellido = $apellido;
-      $this ->usuario = $usuario;
-      $this ->pass = $pass;//pasword encriptada tiene que ser
-      $this ->email = $email;
-      $this ->rutaAvatar = $rutaAvatar; // <-- la ruta del avatar tiene que ir encriptada como la hice en registro
-   }
+   private $errores = [];
 
+
+   public function __construct(Conexion $conn, $datos){
+      $this->conn = $conn;
+      $this->nombre = $datos['nombre'];
+      $this->apellido = $datos['apellido'];
+      $this->alias = $datos['alias'];
+      $this->pass = password_hash($datos['pass'], PASSWORD_DEFAULT);//pasword encriptada tiene que ser
+      $this->email = $datos['email'];
+      $this->rutaAvatar = $datos['rutaAvatar']; // <-- la ruta del avatar tiene que ir encriptada como la hice en registro
+   }
+   public function getErrores(){
+      return $this ->errores;
+   }
 
    public function getConn(){
       return $this->conn;
@@ -37,11 +43,11 @@ class Usuario{
    public function setApellido($apellido){
       $this->apellido = $apellido;
    }
-   public function getUsuario(){
-      return $this->usuario;
+   public function getAlias(){
+      return $this->alias;
    }
-   public function setUsuario($usuario){
-      $this->usuario = $usuario;
+   public function setAlias($alias){
+      $this->alias = $alias;
    }
    public function getPass(){
       return $this->pass;
@@ -60,12 +66,6 @@ class Usuario{
    }
    public function setRutaAvatar($rutaAvatar){
       $this->rutaAvatar = $rutaAvatar;
-   }
-
-
-   public function guardarEnDb(){
-      //
-
    }
 
    public function destruirSession(){

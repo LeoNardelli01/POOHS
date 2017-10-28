@@ -1,15 +1,15 @@
 <?php
 require_once('funciones.php');
 
-class ValidacionRegistro extends Validacion {
-   private $conn;
+class ValidacionRegistro {
+   //private $conn;
+   $usuario;
 
-
-   public function __construct(Conexion $conn){
-      $this ->conn = $conn;
+   public function __construct(Usuario $usuario){
+      $this ->usuario = $usuario;
    }
 
-   public function validar($datos){
+   public function validar(){
       //recibe un array ($_POST) y devuelve otro llamado $errores
 
      $errores = [];
