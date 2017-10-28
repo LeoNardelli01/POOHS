@@ -14,15 +14,18 @@ trait Validacion{
       if($this->buscarEmail()){
          $this->errores['emailRegistrado'] = "El Email ya está Registrado <br><br>Por favor <a href='ingresar.php'>INICIA SESION</a>";
       }
-
       if(empty($this->alias)){
          $this->errores['alias'] = "Debes Colocar un alias";
       }
       if($this->buscarAlias()){
          $this->erorres['aliasRegistrado'] = "Este Alias ya fue tomado, por favor elige otro";
       }
+      if (strlen($this->pass) < 6) {
+         $this->errores['pass'] = "La contraseña debe tener 6 digitos";
+      }
+      // el ultimo if debe confirmar si las dos password coinciden!!!
    }//fin funcion validarRegistro
-   
+
 
    private function buscarAlias(){
       $resultado;
@@ -30,7 +33,7 @@ trait Validacion{
       $sql = $this->conn->getDb()-> prepare("SELECT * FROM usuarios WHERE alias LIKE '$this->alias';");
       $sql->execute();
       $resultado = $sql->fetchAll();
-      if($resutlado !=NULL){
+      if($resultado !=NULL){
          return true;
       }
    }
