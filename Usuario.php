@@ -14,6 +14,7 @@ class Usuario{
 
 
    public function __construct(Conexion $conn, $datos){
+
       $this->conn = $conn;
       $this->nombre = $datos['nombre'];
       $this->apellido = $datos['apellido'];
@@ -67,7 +68,24 @@ class Usuario{
    public function setRutaAvatar($rutaAvatar){
       $this->rutaAvatar = $rutaAvatar;
    }
-
+   
+   public function guardarEnDb(){
+      $datos = $this->toArray();
+      $sql = $this->conn->getDb()
+      ->prepare("INSERT INTO usuarios(nombre, apellido, alias, password, email, rutaAvatar)
+                  VALUES ('$datos[nombre]', '$datos[apellido]', '$datos[alias]', '$datos[pass]', '$datos[email]', '$datos[rutaAvatar]');");
+      $sql->execute();
+   }
+   private function toArray(){
+      return [
+         'nombre' => $this->getNombre(),
+         'apellido' => $this->getApellido(),
+         'alias' => $this->getAlias(),
+         'pass' => $this->getPass(),
+         'email' => $this->getEmail(),
+         'rutaAvatar' =>$this->getRutaAvatar()
+      ];
+   }
    public function destruirSession(){
       session_destroy();
    }

@@ -9,45 +9,29 @@ spl_autoload_register(function ($nombre_clase) {
 
 if(isset($_POST['enviar'])){
    $conn = new Conexion('db'); // el parametro puede ser 'db' o 'json', para que se puedan hacer las dos tipo de conexiones
-   echo "<pre>";
-
    $usuario = new Usuario($conn, $_POST);
    $usuario -> validarRegistro();
-   echo "<br><br><br><br>";
-   //echo "<pre>";
-   var_dump($usuario);
 
-
-  /*
-   $sql = $conn-> getDb() -> prepare("INSERT INTO usuarios(nombre, apellido, alias, password, email, rutaAvatar)
-                        VALUES('Leonel', 'Nardelli', 'Leonchis', '123', 'ricosur@gmail.com', 'ruta/miruta')");
-   $sql ->execute();
-   //$resultado = $sql ->fetch();
-   //var_dump($resultado);
-   */
-
-
-   /*
-   $erroresValidacion = $usuario -> validarRegistro()
-   if ($erroresValidacion == 0) {
-      $usuario -> registrar();
+   if ( $usuario->getErrores() == NULL) {
+      $usuario->guardarEnDb();
+      $conn = NULL;
+      //esto es para comprobar que se guardo en la base de datos, y trae el ultimo registro
+      /*
+      $sql = $usuario->getConn()->getDb()->prepare("SELECT*FROM usuarios ORDER BY id_usuarios DESC LIMIT 1 ;");
+      $sql->execute();
+      $resultado = $sql->fetchAll();
+      var_dump($resultado);
+      */
    }else{
-      $errores = $usuario -> getErrores();
-   }*/
+      echo "Se presentaron los siguientes errores: <br>";
+      var_dump($usuario->getErrores());
+   }
+
 }
 
 echo "<br>PRUEBAS<br>";
 
-echo "<br><br><br>";
-
-
-//$registro -> getConn() -> getDb() -> execute();
-//$registro -> getConn() -> getDb() -> prepare("SELECT * FROM usuarios");
-//$registro -> getConn() -> getDb() -> execute();
-//$resultado = $registro -> fetchAll();
-//var_dump($resultado);
-
-
+echo "<br><br>";
 
  ?>
 

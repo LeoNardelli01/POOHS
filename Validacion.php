@@ -1,6 +1,7 @@
 <?php
 
 trait Validacion{
+
    public function validarRegistro(){
       if ($this->nombre == "") {
          $this->errores['nombre'] = "El nombre es requerido";
@@ -23,9 +24,14 @@ trait Validacion{
       if (strlen($this->pass) < 6) {
          $this->errores['pass'] = "La contraseña debe tener 6 digitos";
       }
-      // el ultimo if debe confirmar si las dos password coinciden!!!
-   }//fin funcion validarRegistro
+      // NOTE: falta el if para confirmar-pass
+      // NOTE: falta encriptar la ruta de la IMG AVATAR y guardarla en la DB
 
+   }//fin funcion validarRegistro
+   public function validarLogin(){
+      //deberia conectarse a la DB y verificar que los datos de nombre de usuario o email y pass conicidan
+      //con lo que estan en la DB.
+   }
 
    private function buscarAlias(){
       $resultado;
@@ -48,6 +54,8 @@ trait Validacion{
          return true;
       }
    }
+
+
 
 }//fin trait
 ?>

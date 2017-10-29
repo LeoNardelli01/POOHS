@@ -23,7 +23,7 @@ class Conexion{
                                        $this->user, $this->pass, array(
                                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
 
-                                   
+
                break;
             default:
                echo "Elige entre DB y JSON para almacenamiento";
@@ -49,6 +49,6 @@ class Conexion{
    public function getDb(){
       return $this->db;
    }
-
+   
 }
 ?>
