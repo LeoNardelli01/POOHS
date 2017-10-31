@@ -5,7 +5,6 @@
 spl_autoload_register(function ($nombre_clase) {
     include $nombre_clase . '.php';
 });
-
 echo "<pre>";
 if(isset($_POST['enviar'])){
    $conn = new Conexion('db');
@@ -18,34 +17,25 @@ if(isset($_POST['enviar'])){
       $validar = NULL;
       echo "Datos guardados Exitosamente";
 
+      echo "<br><br><br>";
+      /*
+      //imprimo la ultima fila de la base de datos para verificar que se guardo correctamente
+      $sql = $usuario->getConn()->getDb()->prepare("SELECT*FROM usuarios ORDER BY id_usuarios DESC LIMIT 1 ;");
+      $sql->execute();
+      $resultado = $sql->fetchAll();
+      var_dump($resultado);
+      */
    }else{
       echo "Los errores son estos: <br>";
       var_dump($validar->getErrores());
       $conn = NULL;
       $validar = NULL;
    }
-   /*
-   $conn = new Conexion('db'); // el parametro puede ser 'db' o 'json', para que se puedan hacer las dos tipo de conexiones
-   $usuario = new Usuario($conn, $_POST);
-   $usuario -> validarRegistro();
-
-   if ( $usuario->getErrores() == NULL) {
-      $usuario->guardarEnDb();
-      $conn = NULL;
-      //esto es para comprobar que se guardo en la base de datos, y trae el ultimo registro
-      /*
-      $sql = $usuario->getConn()->getDb()->prepare("SELECT*FROM usuarios ORDER BY id_usuarios DESC LIMIT 1 ;");
-      $sql->execute();
-      $resultado = $sql->fetchAll();
-      var_dump($resultado);
-      */
-
 
 }
 
 echo "<br>PRUEBAS<br>";
 
-echo "<br><br>";
 
  ?>
 
@@ -67,5 +57,15 @@ echo "<br><br>";
           RUTA AVATAR :  <input type="text" name="rutaAvatar" value="">
           <input type="submit" name="enviar" value="ENVIAR">
        </form>
+
+
+       <?php
+       if(isset($usuario)){
+          echo "Bienvenido " . $usuario->getNombre() . "(" . $usuario->getAlias() . ") " . $usuario->getApellido() . "<br>";
+          echo "Tu email es: " . $usuario->getEmail() . "<br>";
+
+
+       }
+       ?>
     </body>
  </html>
