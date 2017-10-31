@@ -16,8 +16,7 @@ if(isset($_POST['enviar'])){
       $conn = NULL;
       $validar = NULL;
       echo "Datos guardados Exitosamente";
-
-      echo "<br><br><br>";
+      echo "<br><br>";
       /*
       //imprimo la ultima fila de la base de datos para verificar que se guardo correctamente
       $sql = $usuario->getConn()->getDb()->prepare("SELECT*FROM usuarios ORDER BY id_usuarios DESC LIMIT 1 ;");

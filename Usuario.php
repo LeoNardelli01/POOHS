@@ -10,8 +10,6 @@ class Usuario{
    private $rutaAvatar;
    private $confirmarPass;
 
-   private $errores = [];
-
 
    public function __construct(Conexion $conn, $datos){
 
@@ -23,9 +21,6 @@ class Usuario{
       $this->email = $datos['email'];
       $this->rutaAvatar = $datos['rutaAvatar']; // <-- la ruta del avatar tiene que ir encriptada como la hice en registro
       $this->confirmarPass = $datos['confirmar-pass'];
-   }
-   public function getErrores(){
-      return $this ->errores;
    }
 
    public function getConn(){

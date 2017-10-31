@@ -2,17 +2,17 @@
 
 class validarRegistro extends Validacion{
    private $conn;
-   private $nombre; //este atributo deberia estar en abstract validacion
+   private $nombre; //este atributo deberia estar en abstract validacion?
    private $apellido;
-   private $email; //este atributo deberia estar en abstract validacion
-   private $pass;//este atributo deberia estar en abstract validacion
+   private $email; //este atributo deberia estar en abstract validacion?
+   private $pass;//este atributo deberia estar en abstract validacion?
    private $confirmarPass;
    private $alias;
    private $rutaAvatar;
 
    private $errores = [];
 
-   public function __construct($conn, $datos){
+   public function __construct(Conexion $conn, $datos){
       $this->nombre = $datos['nombre'];
       $this->apellido = $datos['apellido'];
       $this->alias = $datos['alias'];
@@ -49,7 +49,7 @@ class validarRegistro extends Validacion{
       if($this->pass != $this->confirmarPass){
          $this->errores['confirmar-pass'] = "Las contraseñas no coinciden";
       }
-      // NOTE: falta el if para confirmar-pass
+      // NOTE: falta validar la ruta que tiene que ser input file.
       // NOTE: falta encriptar la ruta de la IMG AVATAR y guardarla en la DB
 
    }//fin funcion validarRegistro
