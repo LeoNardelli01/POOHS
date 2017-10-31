@@ -17,7 +17,7 @@ class validarRegistro extends Validacion{
       $this->apellido = $datos['apellido'];
       $this->alias = $datos['alias'];
       $this->pass = $datos['pass'];
-      //$this->confirmarPass = $datos['confirmar-pass']; //crearlo en el formulario para uqe no de errores
+      $this->confirmarPass = $datos['confirmar-pass']; //crearlo en el formulario para uqe no de errores
       $this->email = $datos['email'];
       //crear la funcion crearRuta()
       $this->conn = $conn;
@@ -45,6 +45,9 @@ class validarRegistro extends Validacion{
       }
       if (strlen($this->pass) < 6) {
          $this->errores['pass'] = "La contraseña debe tener 6 digitos";
+      }
+      if($this->pass != $this->confirmarPass){
+         $this->errores['confirmar-pass'] = "Las contraseñas no coinciden";
       }
       // NOTE: falta el if para confirmar-pass
       // NOTE: falta encriptar la ruta de la IMG AVATAR y guardarla en la DB

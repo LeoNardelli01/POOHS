@@ -9,5 +9,7 @@ abstract class Validacion{
 
    abstract function validarRegistro();
 
+  function __destruc(){}
+
 }
 ?>

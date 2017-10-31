@@ -15,11 +15,14 @@ if(isset($_POST['enviar'])){
       $usuario = new Usuario($conn, $_POST);
       $usuario->guardarEnDb();
       $conn = NULL;
+      $validar = NULL;
       echo "Datos guardados Exitosamente";
 
    }else{
       echo "Los errores son estos: <br>";
       var_dump($validar->getErrores());
+      $conn = NULL;
+      $validar = NULL;
    }
    /*
    $conn = new Conexion('db'); // el parametro puede ser 'db' o 'json', para que se puedan hacer las dos tipo de conexiones
@@ -54,11 +57,13 @@ echo "<br><br>";
     </head>
     <body>
        <form class="" action="pruebas.php" method="post">
+
           NOMBRE : <input type="text" name="nombre" value=""><br>
           APELLIDO : <input type="text" name="apellido" value=""><br>
           ALIAS : <input type="text" name="alias" value="">
           Email : <input type="text" name="email" value=""><br>
           PASS : <input type="password" name="pass" value="">
+          CONFIRMAR PASS: <input type="password" name="confirmar-pass" value="">
           RUTA AVATAR :  <input type="text" name="rutaAvatar" value="">
           <input type="submit" name="enviar" value="ENVIAR">
        </form>
