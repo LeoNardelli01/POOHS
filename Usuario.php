@@ -1,6 +1,5 @@
 <?php
 class Usuario{
-   use Validacion;
 
    private $conn;
    private $nombre;
@@ -9,6 +8,7 @@ class Usuario{
    private $pass;
    private $email;
    private $rutaAvatar;
+   private $confirmarPass;
 
    private $errores = [];
 
@@ -22,6 +22,7 @@ class Usuario{
       $this->pass = password_hash($datos['pass'], PASSWORD_DEFAULT);//pasword encriptada tiene que ser
       $this->email = $datos['email'];
       $this->rutaAvatar = $datos['rutaAvatar']; // <-- la ruta del avatar tiene que ir encriptada como la hice en registro
+      $this->confirmarPass = $datos['confirmar-pass'];
    }
    public function getErrores(){
       return $this ->errores;
@@ -68,7 +69,7 @@ class Usuario{
    public function setRutaAvatar($rutaAvatar){
       $this->rutaAvatar = $rutaAvatar;
    }
-   
+
    public function guardarEnDb(){
       $datos = $this->toArray();
       $sql = $this->conn->getDb()

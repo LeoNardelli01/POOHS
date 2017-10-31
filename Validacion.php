@@ -1,61 +1,13 @@
 <?php
+/*
+este Trait tiene que ser una clase abstracta para que hereden las clases
+ValidarRegistro y validarLogin
 
-trait Validacion{
+*/
 
-   public function validarRegistro(){
-      if ($this->nombre == "") {
-         $this->errores['nombre'] = "El nombre es requerido";
-      }
-      if($this->apellido == ""){
-         $this->errores['apellido'] = "El apellido es requerido";
-      }
-      if(empty($this->email) || !filter_var($this->email, FILTER_VALIDATE_EMAIL)){
-         $this->errores['email'] = "El email no es valido";
-      }
-      if($this->buscarEmail()){
-         $this->errores['emailRegistrado'] = "El Email ya está Registrado <br><br>Por favor <a href='ingresar.php'>INICIA SESION</a>";
-      }
-      if(empty($this->alias)){
-         $this->errores['alias'] = "Debes Colocar un alias";
-      }
-      if($this->buscarAlias()){
-         $this->erorres['aliasRegistrado'] = "Este Alias ya fue tomado, por favor elige otro";
-      }
-      if (strlen($this->pass) < 6) {
-         $this->errores['pass'] = "La contraseña debe tener 6 digitos";
-      }
-      // NOTE: falta el if para confirmar-pass
-      // NOTE: falta encriptar la ruta de la IMG AVATAR y guardarla en la DB
+abstract class Validacion{
 
-   }//fin funcion validarRegistro
-   public function validarLogin(){
-      //deberia conectarse a la DB y verificar que los datos de nombre de usuario o email y pass conicidan
-      //con lo que estan en la DB.
-   }
+   abstract function validarRegistro();
 
-   private function buscarAlias(){
-      $resultado;
-
-      $sql = $this->conn->getDb()-> prepare("SELECT * FROM usuarios WHERE alias LIKE '$this->alias';");
-      $sql->execute();
-      $resultado = $sql->fetchAll();
-      if($resultado !=NULL){
-         return true;
-      }
-   }
-
-   private function buscarEmail(){
-      $resultado;
-
-      $sql = $this->conn-> getDb() -> prepare("SELECT * FROM usuarios WHERE email LIKE '$this->email';");
-      $sql -> execute();
-      $resultado = $sql->fetchAll();
-      if ($resultado !=NULL) {
-         return true;
-      }
-   }
-
-
-
-}//fin trait
+}
 ?>

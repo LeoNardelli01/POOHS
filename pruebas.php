@@ -6,8 +6,22 @@ spl_autoload_register(function ($nombre_clase) {
     include $nombre_clase . '.php';
 });
 
-
+echo "<pre>";
 if(isset($_POST['enviar'])){
+   $conn = new Conexion('db');
+   $validar = new ValidarRegistro($conn ,$_POST);
+   $validar->validarRegistro();
+   if($validar->getErrores() == NULL){
+      $usuario = new Usuario($conn, $_POST);
+      $usuario->guardarEnDb();
+      $conn = NULL;
+      echo "Datos guardados Exitosamente";
+
+   }else{
+      echo "Los errores son estos: <br>";
+      var_dump($validar->getErrores());
+   }
+   /*
    $conn = new Conexion('db'); // el parametro puede ser 'db' o 'json', para que se puedan hacer las dos tipo de conexiones
    $usuario = new Usuario($conn, $_POST);
    $usuario -> validarRegistro();
@@ -22,10 +36,7 @@ if(isset($_POST['enviar'])){
       $resultado = $sql->fetchAll();
       var_dump($resultado);
       */
-   }else{
-      echo "Se presentaron los siguientes errores: <br>";
-      var_dump($usuario->getErrores());
-   }
+
 
 }
 
